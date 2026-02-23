@@ -1,4 +1,4 @@
-const CACHE = "voice-clipboard-v1";
+const CACHE = "voice-clipboard-v2";
 const ASSETS = ["./", "./index.html", "./style.css", "./app.js", "./manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

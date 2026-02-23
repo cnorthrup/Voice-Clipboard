@@ -2,22 +2,135 @@
 * { box-sizing: border-box; }
 body { margin: 0; font-family: -apple-system, system-ui, Segoe UI, Roboto, Arial; }
 .wrap { max-width: 720px; margin: 0 auto; padding: 16px; }
+
+/* Header */
+.header-row { display: flex; align-items: center; justify-content: space-between; }
 .header h1 { margin: 8px 0 4px; }
 .sub { margin: 0 0 12px; opacity: .8; }
+
+/* Cards */
 .card { padding: 14px; border: 1px solid rgba(127,127,127,.25); border-radius: 12px; margin: 12px 0; }
 .label { display: block; margin: 0 0 8px; font-weight: 600; }
-textarea { width: 100%; min-height: 140px; padding: 10px; border-radius: 10px; border: 1px solid rgba(127,127,127,.35); resize: vertical; }
+textarea { width: 100%; min-height: 140px; padding: 10px; border-radius: 10px; border: 1px solid rgba(127,127,127,.35); resize: vertical; font-family: inherit; font-size: inherit; }
+
+/* Buttons */
 .row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
 .row.space { justify-content: space-between; align-items: center; }
-.btn { padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(127,127,127,.35); background: transparent; cursor: pointer; }
+.btn { padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(127,127,127,.35); background: transparent; cursor: pointer; font-size: 15px; color: inherit; }
 .btn.primary { font-weight: 700; }
 .btn.danger { border-color: rgba(255,0,0,.45); }
-.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.btn.muted { opacity: .65; }
+.btn.large { padding: 14px 28px; font-size: 17px; border-radius: 14px; }
+.btn.icon-btn { font-size: 20px; padding: 6px 10px; border: none; background: none; opacity: .7; }
+.btn[disabled] { opacity: .4; cursor: not-allowed; }
+.btn.file { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Recording pulse on record button */
+@keyframes btn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,59,48,.5); }
+  50%       { box-shadow: 0 0 0 8px rgba(255,59,48,0); }
+}
+.btn.recording {
+  border-color: rgba(255,59,48,.8);
+  color: rgb(255,59,48);
+  animation: btn-pulse 1.4s ease-in-out infinite;
+}
+
+/* Status */
 .status { margin-top: 10px; font-size: 14px; opacity: .85; min-height: 18px; }
+
+/* History */
 .history { display: grid; gap: 10px; margin-top: 10px; }
 .item { padding: 10px; border-radius: 10px; border: 1px solid rgba(127,127,127,.25); }
 .item .meta { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; opacity: .75; }
 .item .text { white-space: pre-wrap; margin-top: 8px; }
 .item .actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+
+/* Footer */
 .footer { opacity: .7; margin: 18px 0 8px; }
-.btn.file { display: inline-flex; align-items: center; gap: 8px; }
+.footer code { font-size: 11px; word-break: break-all; }
+
+/* Settings panel */
+.settings-panel { background: rgba(127,127,127,.05); }
+.settings-title { margin: 0 0 12px; font-size: 16px; }
+.key-row { display: flex; gap: 8px; }
+.key-input {
+  flex: 1; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid rgba(127,127,127,.35);
+  font-size: 15px; font-family: monospace;
+  background: transparent; color: inherit;
+}
+.settings-hint { font-size: 13px; opacity: .75; margin: 8px 0 0; }
+.key-status { font-size: 14px; margin-top: 8px; min-height: 18px; }
+
+/* ─── Focus overlay ─── */
+.focus-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.88);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.focus-content {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 16px; padding: 32px 24px; width: 100%; max-width: 360px;
+  text-align: center;
+}
+
+/* Pulsing ring */
+.focus-pulse {
+  width: 120px; height: 120px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.15);
+  position: relative;
+}
+.focus-pulse::before,
+.focus-pulse::after {
+  content: ''; position: absolute; inset: -3px;
+  border-radius: 50%; border: 3px solid transparent;
+}
+
+@keyframes ring-pulse {
+  0%   { transform: scale(1);   opacity: .7; border-color: rgba(255,59,48,.7); }
+  70%  { transform: scale(1.35); opacity: 0;  border-color: rgba(255,59,48,0); }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+.focus-pulse.active { border-color: rgba(255,59,48,.5); }
+.focus-pulse.active::before { animation: ring-pulse 1.4s ease-out infinite; border-color: rgba(255,59,48,.7); }
+.focus-pulse.active::after  { animation: ring-pulse 1.4s ease-out .5s infinite; border-color: rgba(255,59,48,.7); }
+
+.focus-emoji {
+  font-size: 52px; line-height: 1;
+  position: absolute;    /* sit inside the pulse ring */
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+
+/* wrapper so emoji overlaps pulse */
+.focus-pulse { position: relative; flex-shrink: 0; }
+
+.focus-label {
+  font-size: 22px; font-weight: 700; color: #fff;
+  margin: 0;
+}
+.focus-hint {
+  font-size: 14px; color: rgba(255,255,255,.6);
+  margin: -8px 0 0;
+}
+.focus-transcript {
+  font-size: 15px; color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.08);
+  border-radius: 10px; padding: 12px;
+  width: 100%; text-align: left;
+  white-space: pre-wrap; max-height: 160px; overflow-y: auto;
+}
+.focus-actions {
+  display: flex; flex-direction: column; gap: 10px; width: 100%;
+}
+.focus-actions .btn {
+  width: 100%; justify-content: center;
+  color: #fff; border-color: rgba(255,255,255,.3);
+}
+.focus-actions .btn.primary {
+  background: rgba(255,59,48,.85);
+  border-color: transparent;
+}
+.focus-actions .btn.primary:active { background: rgba(255,59,48,1); }
