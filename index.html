@@ -8,30 +8,66 @@
   <link rel="manifest" href="manifest.webmanifest" />
 </head>
 <body>
+
+  <!-- Focus overlay: shown when ?record=true (Back Tap / Shortcut / Action Button) -->
+  <div id="focusOverlay" class="focus-overlay" hidden>
+    <div class="focus-content">
+      <div id="focusPulse" class="focus-pulse"></div>
+      <div id="focusEmoji" class="focus-emoji">🎙</div>
+      <div id="focusLabel" class="focus-label">Tap to Record</div>
+      <div id="focusHint"  class="focus-hint"></div>
+      <div id="focusTranscript" class="focus-transcript" hidden></div>
+      <div class="focus-actions">
+        <button id="focusStopBtn"   class="btn primary large">● Record</button>
+        <button id="focusCancelBtn" class="btn muted large">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <main class="wrap">
     <header class="header">
-      <h1>Voice → Clipboard</h1>
-      <p class="sub">Record, transcribe (v1: type/dictate), auto-copy, paste anywhere.</p>
+      <div class="header-row">
+        <h1>Voice → Clipboard</h1>
+        <button id="settingsToggle" class="btn icon-btn" title="Settings">⚙</button>
+      </div>
+      <p class="sub">Record → AI transcribes → auto-copies. Paste anywhere.</p>
     </header>
 
+    <!-- Settings panel -->
+    <section id="settingsPanel" class="card settings-panel" hidden>
+      <h2 class="settings-title">Settings</h2>
+      <label class="label" for="apiKeyInput">Groq API Key</label>
+      <div class="key-row">
+        <input id="apiKeyInput" type="password" class="key-input"
+               placeholder="gsk_…" autocomplete="off" spellcheck="false" />
+        <button id="saveKeyBtn" class="btn primary">Save</button>
+      </div>
+      <p class="settings-hint">
+        Free key at <strong>console.groq.com</strong> → API Keys
+      </p>
+      <div id="keyStatus" class="key-status"></div>
+    </section>
+
+    <!-- Main card -->
     <section class="card">
       <label class="label" for="text">Transcript</label>
-      <textarea id="text" placeholder="Tap Record, speak, then Stop…"></textarea>
+      <textarea id="text" placeholder="Hit Record, speak, then Stop…"></textarea>
 
       <div class="row">
         <button id="recordBtn" class="btn primary">● Record</button>
-        <button id="stopBtn" class="btn" disabled>■ Stop</button>
+        <button id="stopBtn"   class="btn" disabled>■ Stop</button>
       </div>
 
       <div class="row">
-        <button id="copyBtn" class="btn">Copy</button>
-        <button id="saveBtn" class="btn">Save to History</button>
+        <button id="copyBtn"  class="btn">Copy</button>
+        <button id="saveBtn"  class="btn">Save to History</button>
         <button id="clearBtn" class="btn danger">Clear</button>
       </div>
 
       <div id="status" class="status" aria-live="polite"></div>
     </section>
 
+    <!-- History card -->
     <section class="card">
       <div class="row space">
         <h2>History</h2>
@@ -43,13 +79,15 @@
           </label>
         </div>
       </div>
-
       <div id="history" class="history"></div>
     </section>
 
     <footer class="footer">
       <small>
-        Tip: Add to Home Screen from Safari Share menu.
+        <strong>Back Tap shortcut:</strong> Settings → Accessibility → Touch → Back Tap →
+        run a Shortcut that opens
+        <code>https://cnorthrup.github.io/Voice-Clipboard/?record=true</code>
+        for instant one-tap recording.
       </small>
     </footer>
   </main>
