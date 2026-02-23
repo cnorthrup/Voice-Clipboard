@@ -249,13 +249,15 @@ function setFocusState(state, msg) {
 }
 
 async function runFocusMode() {
-  focusOverlay.hidden       = false;
-  document.body.style.overflow = 'hidden';
-
   if (!getApiKey()) {
-    setFocusState('error', 'No API key set. Open the app and add your Groq key in Settings (⚙).');
+    // No key yet — skip overlay, open settings so user can enter key first
+    settingsPanel.hidden = false;
+    apiKeyInput.focus();
+    setStatus('Add your Groq API key below, then tap Record.');
     return;
   }
+  focusOverlay.hidden          = false;
+  document.body.style.overflow = 'hidden';
   setFocusState('ready');
 }
 

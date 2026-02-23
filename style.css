@@ -64,6 +64,8 @@ textarea { width: 100%; min-height: 140px; padding: 10px; border-radius: 10px; b
 .key-status { font-size: 14px; margin-top: 8px; min-height: 18px; }
 
 /* ─── Focus overlay ─── */
+/* Needed: author CSS display:flex would otherwise win over [hidden] UA style */
+.focus-overlay[hidden] { display: none; }
 .focus-overlay {
   position: fixed; inset: 0; z-index: 100;
   display: flex; align-items: center; justify-content: center;
