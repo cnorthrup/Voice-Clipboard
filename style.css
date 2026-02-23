@@ -1,1 +1,23 @@
-
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, system-ui, Segoe UI, Roboto, Arial; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 16px; }
+.header h1 { margin: 8px 0 4px; }
+.sub { margin: 0 0 12px; opacity: .8; }
+.card { padding: 14px; border: 1px solid rgba(127,127,127,.25); border-radius: 12px; margin: 12px 0; }
+.label { display: block; margin: 0 0 8px; font-weight: 600; }
+textarea { width: 100%; min-height: 140px; padding: 10px; border-radius: 10px; border: 1px solid rgba(127,127,127,.35); resize: vertical; }
+.row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.row.space { justify-content: space-between; align-items: center; }
+.btn { padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(127,127,127,.35); background: transparent; cursor: pointer; }
+.btn.primary { font-weight: 700; }
+.btn.danger { border-color: rgba(255,0,0,.45); }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.status { margin-top: 10px; font-size: 14px; opacity: .85; min-height: 18px; }
+.history { display: grid; gap: 10px; margin-top: 10px; }
+.item { padding: 10px; border-radius: 10px; border: 1px solid rgba(127,127,127,.25); }
+.item .meta { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; opacity: .75; }
+.item .text { white-space: pre-wrap; margin-top: 8px; }
+.item .actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.footer { opacity: .7; margin: 18px 0 8px; }
+.btn.file { display: inline-flex; align-items: center; gap: 8px; }
