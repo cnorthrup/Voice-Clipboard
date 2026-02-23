@@ -1,1 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Voice → Clipboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="header">
+      <h1>Voice → Clipboard</h1>
+      <p class="sub">Record, transcribe (v1: type/dictate), auto-copy, paste anywhere.</p>
+    </header>
 
+    <section class="card">
+      <label class="label" for="text">Transcript</label>
+      <textarea id="text" placeholder="Tap Record, speak, then Stop…"></textarea>
+
+      <div class="row">
+        <button id="recordBtn" class="btn primary">● Record</button>
+        <button id="stopBtn" class="btn" disabled>■ Stop</button>
+      </div>
+
+      <div class="row">
+        <button id="copyBtn" class="btn">Copy</button>
+        <button id="saveBtn" class="btn">Save to History</button>
+        <button id="clearBtn" class="btn danger">Clear</button>
+      </div>
+
+      <div id="status" class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <div class="row space">
+        <h2>History</h2>
+        <div class="row">
+          <button id="exportBtn" class="btn">Export</button>
+          <label class="btn file">
+            Import
+            <input id="importFile" type="file" accept="application/json" hidden />
+          </label>
+        </div>
+      </div>
+
+      <div id="history" class="history"></div>
+    </section>
+
+    <footer class="footer">
+      <small>
+        Tip: Add to Home Screen from Safari Share menu.
+      </small>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
