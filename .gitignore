@@ -1,1 +1,3 @@
 .claude/worktrees/
+tools/credentials.json
+tools/.sessions.json
